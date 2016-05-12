@@ -2,3 +2,6 @@ Development Log
 Day 1
 5/12
 -added dev log
+-we fleshed out the grid and noisebutton classes more 
+-we figured out how main works with display
+-tried to add the sound to noisebutton 
