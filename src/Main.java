@@ -8,8 +8,8 @@ public class Main extends PApplet{
 	private Grid grid;
 	public Main(){
 		
-		display = new Display(this,1,1,640,640);
-		grid = new Grid(2,2);
+		display = new Display(this,0,0,640,640);
+		grid = new Grid(5,5);
 	}
 	public void loadData(String file){
 		
@@ -22,7 +22,7 @@ public class Main extends PApplet{
 		
 	}
 	public void draw(){
-		background(255,255,255);
+		background(0,5,0);
 		display.drawGrid(grid);
 	}
 	

@@ -5,3 +5,8 @@ Day 1
 -we fleshed out the grid and noisebutton classes more 
 -we figured out how main works with display
 -tried to add the sound to noisebutton 
+Day 2
+	5/16
+	-we made the grid
+	-added colors
+	-tried to make color variables unsuccessful
