@@ -11,6 +11,14 @@ public class Grid {
 		grid = new NoiseButton[rows][cols];
 	}
 
+	public int getRows() {
+		return rows;
+	}
+
+	public int getCols() {
+		return cols;
+	}
+	
 	public void addNoiseButton(int row, int col, NoiseButton n) {
 		grid[row][col] = n;
 	}
@@ -26,12 +34,8 @@ public class Grid {
 		return buttonsClicked;
 	}
 
-	public int getRows() {
-		return rows;
-	}
 
-	public int getCols() {
-		return cols;
-	}
+	
+	
 
 }

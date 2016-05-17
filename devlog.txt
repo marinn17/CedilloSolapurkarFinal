@@ -9,4 +9,3 @@ Day 2
 	5/16
 	-we made the grid
 	-added colors
-	-tried to make color variables unsuccessful

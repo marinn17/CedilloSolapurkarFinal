@@ -4,12 +4,12 @@ import javax.sound.sampled.Clip;
 
 public class NoiseButton {
 	private boolean isClicked;
-	public Clip sound ;
-	// whatever the data type is for sound
+	private Clip sound ;
+	
+
 	public NoiseButton (String file){
-		//save file to whatever the variable is
 		isClicked = false;
-		sound = loadClip(file);
+		//sound = loadClip(file);
 	}
 	public Clip loadClip(String file){
 		Clip clip = null;
@@ -22,10 +22,12 @@ public class NoiseButton {
 		}
 		return clip;
 	}
+	
 	public void play(Clip clip){
 		stopClip(clip);
 		clip.start();
 	}
+	
 	public void stopClip(Clip clip){
 		if (clip.isRunning()){
 			clip.stop();
