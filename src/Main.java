@@ -25,8 +25,8 @@ public class Main extends PApplet {
 
 	public void draw(){
 		background(0,0,0);
-		display.drawGrid(grid);
-		
+		display.drawGrid();
+		display.update();
 	}
 	public void mouseClicked(){
 		display.mouseCoordinates(mouseX,mouseY);

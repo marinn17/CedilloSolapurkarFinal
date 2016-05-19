@@ -11,4 +11,9 @@ Day 2
 	-added colors
 Day 3
 	5/17
-	-
+	-fixed some things in display
+Day 4
+	5/19
+	-figured out how to handle mouse clicks
+	-tried to add sound
+	

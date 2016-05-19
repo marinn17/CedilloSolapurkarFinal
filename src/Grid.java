@@ -34,6 +34,10 @@ public class Grid {
 		return buttonsClicked;
 	}
 
+	public NoiseButton getNoiseButton(int r, int c) {
+		return grid[r][c];
+	}
+
 
 	
 	

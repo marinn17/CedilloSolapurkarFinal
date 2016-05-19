@@ -9,7 +9,8 @@ public class NoiseButton {
 
 	public NoiseButton (String file){
 		isClicked = false;
-		//sound = loadClip(file);
+		sound = loadClip(file);
+		
 	}
 	public Clip loadClip(String file){
 		Clip clip = null;
@@ -23,14 +24,14 @@ public class NoiseButton {
 		return clip;
 	}
 	
-	public void play(Clip clip){
-		stopClip(clip);
-		clip.start();
+	public void play(){
+		stopClip();
+		sound.start();
 	}
 	
-	public void stopClip(Clip clip){
-		if (clip.isRunning()){
-			clip.stop();
+	public void stopClip(){
+		if (sound.isRunning()){
+			sound.stop();
 		}
 	}
 
