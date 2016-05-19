@@ -17,7 +17,7 @@ public class Display {
 		this.p = p;
 		grid = g;
 		NOT_CLICKED = p.color(0,250,154);
-		CLICKED = p.color(15,255,160);
+		CLICKED = p.color(255, 204, 0);
 		RECT_HEIGHT = (h-(5*g.getRows()))/g.getRows();
 		RECT_WIDTH =  (w-(5*g.getCols()))/g.getCols();
 	}
@@ -38,8 +38,17 @@ public class Display {
 	}
 
 	public void mouseCoordinates(int mouseX, int mouseY) {
-		// TODO Auto-generated method stub
-		
+		isInGrid(mouseX,mouseY);
+		int r =mouseX/RECT_WIDTH;
+		int c = mouseY/RECT_HEIGHT;
+	}
+
+	public boolean isInGrid(int mouseX, int mouseY) {
+		System.out.println(mouseX+" "+mouseY);
+		if (mouseX>=10&mouseX<=10+RECT_WIDTH){
+			System.out.println("in the crack");
+		}
+		return true;
 	}
 
 }

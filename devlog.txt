@@ -9,3 +9,6 @@ Day 2
 	5/16
 	-we made the grid
 	-added colors
+Day 3
+	5/17
+	-
