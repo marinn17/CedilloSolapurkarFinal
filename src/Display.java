@@ -1,4 +1,5 @@
-import java.awt.Color;
+
+import java.util.ArrayList;
 
 import processing.core.PApplet;
 
@@ -6,7 +7,7 @@ public class Display {
 	private PApplet p;
 	private int x, y, w, h;
 	private Grid grid;
-	private static int CLICKED, NOT_CLICKED;
+	private static int CLICKED, NOT_CLICKED, PLAY;
 	private static int RECT_HEIGHT, RECT_WIDTH;
 
 	public Display(PApplet p, int x, int y, int w, int h, Grid g) {
@@ -17,7 +18,8 @@ public class Display {
 		this.p = p;
 		grid = g;
 		NOT_CLICKED = p.color(0, 250, 154);
-		CLICKED = p.color(255, 204, 0);
+		CLICKED = p.color(0, 180, 60);
+		PLAY = p.color(255,255,51);
 		RECT_HEIGHT = (h - (5 * g.getRows())) / g.getRows();
 		RECT_WIDTH = (w - (5 * g.getCols())) / g.getCols();
 	}
@@ -30,20 +32,19 @@ public class Display {
 				p.fill(NOT_CLICKED);
 				p.rect(rX + 10, rY + 10, RECT_HEIGHT, RECT_WIDTH, 10);
 				rY += RECT_WIDTH;
-
 			}
 			rY = 0;
 			rX += RECT_HEIGHT;
 		}
 	}
 
-	public void mouseCoordinates(int mouseX, int mouseY) {
-		isInGrid(mouseX, mouseY);
-		int r = mouseX / RECT_WIDTH;
-		int c = mouseY / RECT_HEIGHT;
-		NoiseButton b = grid.getNoiseButton(r, c);
-		b.switchButton();
-		
+	public void setMouseCoordinates(int mouseX, int mouseY) {
+		if (isInGrid(mouseX, mouseY)) {
+			int r = mouseX / RECT_WIDTH;
+			int c = mouseY / RECT_HEIGHT;
+			NoiseButton b = grid.getNoiseButton(r, c);
+			b.switchButton();
+		}
 	}
 
 	public int getBlue(int pixel) {
@@ -72,7 +73,6 @@ public class Display {
 	}
 
 	public void update() {
-
 		int rX = x;
 		int rY = y;
 		for (int i = 0; i < grid.getRows(); i++) {
@@ -80,22 +80,26 @@ public class Display {
 				NoiseButton b = grid.getNoiseButton(i, j);
 				if (b.getClicked()) {
 					p.fill(CLICKED);
-					p.rect(rX + 10, rY + 10, RECT_HEIGHT, RECT_WIDTH, 10);
-					rY += RECT_WIDTH;
-					b.play();
-					
 				} else {
 					p.fill(NOT_CLICKED);
-					p.rect(rX + 10, rY + 10, RECT_HEIGHT, RECT_WIDTH, 10);
-					rY += RECT_WIDTH;
-					//b.stopClip();
 				}
-
+				p.rect(rX + 10, rY + 10, RECT_HEIGHT, RECT_WIDTH, 10);
+				rY += RECT_WIDTH;
 			}
 			rY = 0;
 			rX += RECT_HEIGHT;
 		}
+		
+	}
 
+	public void runLine() {
+		ArrayList<NoiseButton> nb = new ArrayList<NoiseButton>();//
+		for (int i =0; i<grid.getCols();i++){
+			nb = grid.getButtonsClickedInRow(i);
+			for (NoiseButton e:nb){
+				e.play();
+			}
+		}
 	}
 
 }

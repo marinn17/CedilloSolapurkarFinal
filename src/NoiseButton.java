@@ -1,46 +1,38 @@
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
+import java.io.FileInputStream;
+import java.io.InputStream;
+
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 public class NoiseButton {
 	private boolean isClicked;
-	private Clip sound ;
-	
+	private String sound;
 
-	public NoiseButton (String file){
+	public NoiseButton(String file) {
 		isClicked = false;
-		sound = loadClip(file);
-		
+		sound = file;
 	}
-	public Clip loadClip(String file){
-		Clip clip = null;
+
+	public void play() {
 		try {
-			AudioInputStream audioIn = AudioSystem.getAudioInputStream(getClass().getResource(file));
-			clip = AudioSystem.getClip();
-			clip.open(audioIn);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return clip;
-	}
-	
-	public void play(){
-		stopClip();
-		sound.start();
-	}
-	
-	public void stopClip(){
-		if (sound.isRunning()){
-			sound.stop();
+			InputStream in = new FileInputStream(sound);
+
+			// create an audiostream from the inputstream
+			AudioStream audioStream = new AudioStream(in);
+
+			// play the audio clip with the audioplayer class
+			AudioPlayer.player.start(audioStream);
+		} catch (Exception e) {
 		}
 	}
 
-	public void switchButton(){ // switch the button to either clicked or not clicked
-		isClicked=!isClicked;
+	public void switchButton() { // switch the button to either clicked or not
+					// clicked
+		isClicked = !isClicked;
 	}
-	public boolean getClicked(){
+
+	public boolean getClicked() {
 		return isClicked;
 	}
-	
-	
+
 }
