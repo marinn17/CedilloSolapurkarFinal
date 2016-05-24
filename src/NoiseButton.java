@@ -7,12 +7,32 @@ import sun.audio.AudioStream;
 public class NoiseButton {
 	private boolean isClicked;
 	private String sound;
+	private int x,y;
 
 	public NoiseButton(String file) {
 		isClicked = false;
 		sound = file;
+		x=0;
+		y=0;
 
 	}	
+
+	public int getX() {
+		return x;
+	}
+	public boolean setX(int x) {
+		this.x = x;
+		if (x!=0)return true;
+		return false;
+	}
+	public int getY() {
+		return y;
+	}
+	public boolean setY(int y) {
+		this.y = y;
+		if (y!=0)return true;
+		return false;
+	}
 	public void play() {
 		try {
 			InputStream in = new FileInputStream(sound);

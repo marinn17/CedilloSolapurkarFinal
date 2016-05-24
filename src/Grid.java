@@ -9,6 +9,7 @@ public class Grid {
 		rows = r;
 		cols = c;
 		grid = new NoiseButton[rows][cols];
+		
 	}
 
 	public int getRows() {

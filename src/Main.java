@@ -31,13 +31,14 @@ public class Main extends PApplet {
 
 	public void draw() {
 		background(0, 0, 0);
-		// display.drawGrid();
+		display.drawGrid();
 		display.update();
+		display.runLine();
+
 	}
 
 	public void mouseClicked() {
 		display.setMouseCoordinates(mouseX, mouseY);
-		
 
 	}
 
