@@ -19,7 +19,7 @@ public class Display {
 		grid = g;
 		NOT_CLICKED = p.color(0, 250, 154);
 		CLICKED = p.color(0, 180, 60);
-		PLAY = p.color(255,255,51);
+		PLAY = p.color(255, 255, 51);
 		RECT_HEIGHT = (h - (5 * g.getRows())) / g.getRows();
 		RECT_WIDTH = (w - (5 * g.getCols())) / g.getCols();
 	}
@@ -44,6 +44,7 @@ public class Display {
 			int c = mouseY / RECT_HEIGHT;
 			NoiseButton b = grid.getNoiseButton(r, c);
 			b.switchButton();
+			runLine(mouseX, mouseY,r,c);
 		}
 	}
 
@@ -89,17 +90,14 @@ public class Display {
 			rY = 0;
 			rX += RECT_HEIGHT;
 		}
-		
+
 	}
 
-	public void runLine() {
-		ArrayList<NoiseButton> nb = new ArrayList<NoiseButton>();//
-		for (int i =0; i<grid.getCols();i++){
-			nb = grid.getButtonsClickedInRow(i);
-			for (NoiseButton e:nb){
-				e.play();
-			}
-		}
+	public void runLine(int mouseX, int mouseY, int r, int c) {
+		NoiseButton b = grid.getNoiseButton(r, c);
+		if (b.getClicked())
+			b.play();
+
 	}
 
 }

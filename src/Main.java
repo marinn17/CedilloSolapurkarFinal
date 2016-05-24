@@ -7,10 +7,20 @@ public class Main extends PApplet {
 
 	public Main() {
 		grid = new Grid(5, 5);
-		display = new Display(this, 0, 0, 640, 640,grid);
-		for (int i=0;i<grid.getRows();i++){
-			for (int j=0;j<grid.getCols();j++){
-				grid.addNoiseButton(i, j, new NoiseButton("/CedilloSolapurkarFinal/solemnw.wav"));
+		display = new Display(this, 0, 0, 640, 640, grid);
+		for (int j = 0; j < grid.getRows(); j++) {
+			for (int i = 0; i < grid.getCols(); i++) {
+				if (j == 0)
+					grid.addNoiseButton(j, i, new NoiseButton("/CedilloSolapurkarFinal/src/1.wav"));
+				if (j == 1)
+					grid.addNoiseButton(j, i, new NoiseButton("/CedilloSolapurkarFinal/src/2.wav"));
+				if (j == 2)
+					grid.addNoiseButton(j, i, new NoiseButton("/CedilloSolapurkarFinal/src/3.wav"));
+				if (j == 3)
+					grid.addNoiseButton(j, i, new NoiseButton("/CedilloSolapurkarFinal/src/4.wav"));
+				if (j == 4)
+					grid.addNoiseButton(j, i, new NoiseButton("/CedilloSolapurkarFinal/src/5.wav"));
+
 			}
 		}
 	}
@@ -19,15 +29,16 @@ public class Main extends PApplet {
 		size(640, 640);
 	}
 
-	public void draw(){
-		background(0,0,0);
-		//display.drawGrid();
+	public void draw() {
+		background(0, 0, 0);
+		// display.drawGrid();
 		display.update();
-		display.runLine();
 	}
-	public void mouseClicked(){
-		display.setMouseCoordinates(mouseX,mouseY);
+
+	public void mouseClicked() {
+		display.setMouseCoordinates(mouseX, mouseY);
 		
+
 	}
 
 }

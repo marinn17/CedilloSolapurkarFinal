@@ -11,20 +11,20 @@ public class NoiseButton {
 	public NoiseButton(String file) {
 		isClicked = false;
 		sound = file;
-	}
 
+	}	
 	public void play() {
 		try {
 			InputStream in = new FileInputStream(sound);
 
 			// create an audiostream from the inputstream
 			AudioStream audioStream = new AudioStream(in);
-
+			
 			// play the audio clip with the audioplayer class
 			AudioPlayer.player.start(audioStream);
-		} catch (Exception e) {
-		}
+		} catch (Exception e) {}
 	}
+	
 
 	public void switchButton() { // switch the button to either clicked or not
 					// clicked
