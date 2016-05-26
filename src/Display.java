@@ -1,13 +1,10 @@
-
-import java.util.ArrayList;
-
 import processing.core.PApplet;
 
 public class Display {
 	private PApplet p;
 	private int x, y, w, h;
 	private Grid grid;
-	private static int CLICKED, NOT_CLICKED, PLAY;
+	private static int CLICKED, NOT_CLICKED;
 	private static int RECT_HEIGHT, RECT_WIDTH;
 
 	public Display(PApplet p, int x, int y, int w, int h, Grid g) {
@@ -19,10 +16,10 @@ public class Display {
 		grid = g;
 		NOT_CLICKED = p.color(0, 250, 154);
 		CLICKED = p.color(0, 180, 60);
-		PLAY = p.color(255, 255, 51);
-		RECT_HEIGHT = (h - (5 * g.getRows())) / g.getRows();
-		RECT_WIDTH = (w - (5 * g.getCols())) / g.getCols();
-
+		// subtract double x and y from height and width in order to have a
+		// border
+		RECT_HEIGHT = (h - (2 * y)) / g.getRows();
+		RECT_WIDTH = (w - (2 * x)) / g.getCols();
 	}
 
 	public void drawGrid() {
@@ -31,34 +28,39 @@ public class Display {
 		for (int i = 0; i < grid.getRows(); i++) {
 			for (int j = 0; j < grid.getCols(); j++) {
 				p.fill(NOT_CLICKED);
-				p.rect(rX + 10, rY + 10, RECT_HEIGHT, RECT_WIDTH, 10);
-				rY += RECT_WIDTH;
+				p.rect(rX + RECT_HEIGHT * i, rY + RECT_WIDTH * j, RECT_HEIGHT, RECT_WIDTH, 10);
 				NoiseButton n = grid.getNoiseButton(i, j);
-				n.setX(rX + 10);
-				n.setY(rY + 10);
-
+				n.setX(rX + RECT_HEIGHT * i);
+				n.setY(rY + RECT_WIDTH * j);
 			}
-			rY = 0;
-			rX += RECT_HEIGHT;
 		}
 	}
 
-	public void setMouseCoordinates(int mouseX, int mouseY) {
-		if (isInGrid(mouseX, mouseY)) {
-			int r = mouseX / RECT_WIDTH;
-			int c = mouseY / RECT_HEIGHT;
-			if (grid.getNoiseButton(r, c).getX() > mouseX && grid.getNoiseButton(r, c).getY() < mouseY) {
-				r--;
-				c--;
-			} else if (grid.getNoiseButton(r, c).getY() > mouseY) {
-				r--;
-			} else if (mouseX < grid.getNoiseButton(r, c).getX()) {
-				c--;
+	public void updateDisplay() {
+		for (int i = 0; i < grid.getRows(); i++) {
+			for (int j = 0; j < grid.getCols(); j++) {
+				NoiseButton b = grid.getNoiseButton(i, j);
+				if (b.getClicked()) {
+					p.fill(CLICKED);
+				} else {
+					p.fill(NOT_CLICKED);
+				}
+				p.rect(b.getX(), b.getY(), RECT_WIDTH, RECT_HEIGHT, 10);
 			}
-			NoiseButton b = grid.getNoiseButton(r, c);
+		}
+	}
 
+	public void updateGrid(int mouseX, int mouseY) {
+		if (isInGrid(mouseX, mouseY)) {
+			int r = (mouseX - x) / RECT_WIDTH;
+			int c = (mouseY - y) / RECT_HEIGHT;
+			NoiseButton b = grid.getNoiseButton(r, c);
 			b.switchButton();
-			System.out.println(mouseX + " " + mouseY + " " + r + " " + c + " " + b.getX() + " " + b.getY());
+			if (b.getClicked())
+				b.play();
+			else {
+				b.stop();
+			}
 		}
 	}
 
@@ -81,40 +83,11 @@ public class Display {
 		int red = getRed(pix);
 		int green = getGreen(pix);
 		int blue = getBlue(pix);
+		// background is black so if the mouse coordinates
+		// have a black pixel they are not on the grid
 		if (red == 0 && green == 0 && blue == 0) {
 			return false;
 		}
 		return true;
 	}
-
-	public void update() {
-		int rX = x;
-		int rY = y;
-		for (int i = 0; i < grid.getRows(); i++) {
-			for (int j = 0; j < grid.getCols(); j++) {
-				NoiseButton b = grid.getNoiseButton(i, j);
-				if (b.getClicked()) {
-					p.fill(CLICKED);
-				} else {
-					p.fill(NOT_CLICKED);
-				}
-				p.rect(rX + 10, rY + 10, RECT_HEIGHT, RECT_WIDTH, 10);
-				rY += RECT_WIDTH;
-			}
-			rY = 0;
-			rX += RECT_HEIGHT;
-		}
-
-	}
-
-	public void runLine() {/*
-							 * p.fill(251, 251, 51); p.strokeWeight(10);
-							 * p.line(x, y, x, h); for (int i = y; i < w; i++) {
-							 * p.line(i, y, i, h); }
-							 * 
-							 * NoiseButton b = grid.getNoiseButton(r, c); if
-							 * (b.getClicked()) b.play();
-							 */
-	}
-
 }
