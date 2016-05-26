@@ -29,6 +29,7 @@ public class Display {
 			for (int j = 0; j < grid.getCols(); j++) {
 				p.fill(NOT_CLICKED);
 				p.rect(rX + RECT_HEIGHT * i, rY + RECT_WIDTH * j, RECT_HEIGHT, RECT_WIDTH, 10);
+				
 				NoiseButton n = grid.getNoiseButton(i, j);
 				n.setX(rX + RECT_HEIGHT * i);
 				n.setY(rY + RECT_WIDTH * j);
